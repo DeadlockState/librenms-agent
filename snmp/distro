@@ -39,6 +39,12 @@ elif [ "${OS}" = "Linux" ] ; then
     DIST='Mandrake'
     PSEUDONAME=`cat /etc/mandrake-release | sed s/.*\(// | sed s/\)//`
     REV=`cat /etc/mandrake-release | sed s/.*release\ // | sed s/\ .*//`
+    
+  elif [ "`uname -r | grep pve`" ] ; then
+    # PVEVERSION=`pveversion | awk 'BEGIN {FS="/"}{print $2}'`
+    PVEVERSION=`pveversion | awk -v FS="(manager/| \()" '{print $2}'`
+    DIST="Proxmox VE "$PVEVERSION""
+    REV=""
 	
   elif [ -f /etc/debian_version ] ; then
     DIST="Debian `cat /etc/debian_version`"
